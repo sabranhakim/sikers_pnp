@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Usernamee</th>
+                <th>Username</th>
                 <th>Email</th>
                 <th>Password</th>
                 <th>Level</th>
