@@ -1,4 +1,12 @@
 <?php 
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
    if (isset($_GET['proses']) && $_GET['proses'] == 'insert') {
     include '../koneksi.php';
     if (isset($_POST['submit'])) {
