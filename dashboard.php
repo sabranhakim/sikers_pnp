@@ -64,6 +64,11 @@ if (!isset($_SESSION['username'])) {
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Pages
+            </div>
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?page=home"">
