@@ -35,8 +35,8 @@
             <tbody>
                 <?php 
             include ("../sikermaPNP/koneksi.php");
-
-            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen;");
+                //SELECT * FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra
+            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
             $no = 1;
             while($data_dokumen = mysqli_fetch_array($ambil)) {
             ?>
@@ -92,6 +92,7 @@
             <label for="instansi_mitra">Instansi Mitra</label>
             <input type="text" class="form-control" name="instansi_mitra" required>
         </div>
+        
         <div class="form-group">
             <label for="jenis_dokumen">Jenis Dokumen</label>
             <select class="form-control" name="jenis_dokumen" id="jenis_dokumen" required>

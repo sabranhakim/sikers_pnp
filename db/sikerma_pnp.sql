@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 06, 2024 at 01:57 AM
+-- Generation Time: Dec 09, 2024 at 06:40 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.6
 
@@ -30,18 +30,25 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_dokumen` (
   `id_dokumen` int NOT NULL,
   `no_dokumen` varchar(50) NOT NULL,
+  `instansi_mitra` varchar(40) NOT NULL,
   `jenis_dokumen` enum('MOU','MOA','IA') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jangka_waktu` varchar(25) NOT NULL,
-  `awal_kerjasama` varchar(25) NOT NULL,
-  `akhir_kerjasama` varchar(25) NOT NULL,
-  `keterangan` varchar(25) NOT NULL,
+  `awal_kerjasama` date NOT NULL,
+  `akhir_kerjasama` date NOT NULL,
+  `keterangan` enum('Aktif','Tidak Aktif') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `bidang_usaha` varchar(50) NOT NULL,
-  `jurusan_terkait` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jurusan_terkait` varchar(20) NOT NULL,
   `topik_kerjasama` varchar(50) NOT NULL,
-  `link_dokumen` varchar(100) NOT NULL,
-  `id_jurusan` int NOT NULL,
-  `id_mitra` int NOT NULL
+  `link_dokumen` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_dokumen`
+--
+
+INSERT INTO `tb_dokumen` (`id_dokumen`, `no_dokumen`, `instansi_mitra`, `jenis_dokumen`, `jangka_waktu`, `awal_kerjasama`, `akhir_kerjasama`, `keterangan`, `bidang_usaha`, `jurusan_terkait`, `topik_kerjasama`, `link_dokumen`) VALUES
+(7, '654G', 'SEMEN ID', 'MOU', 'JHKLJ', '2024-12-21', '2024-12-27', 'Tidak Aktif', 'KJGK', 'General', 'JHFJ', 'Draft-Class-Diagram.docx'),
+(11, 'asdfasdf', 'asdfasdf', 'MOU', 'asdfasd', '2024-12-12', '2024-12-27', 'Tidak Aktif', 'asdfas', 'Akuntansi', 'asdfas', 'Draft-Class-Diagram.docx');
 
 -- --------------------------------------------------------
 
@@ -73,25 +80,6 @@ INSERT INTO `tb_jurusan` (`id_jurusan`, `nama_jurusan`, `email_jurusan`, `notelp
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_kerjasama`
---
-
-CREATE TABLE `tb_kerjasama` (
-  `id_kerjasama` int NOT NULL,
-  `jenis_dokumen` enum('MOU','MOA','IA') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `topik_kerjasama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `deskripsi_kerjasama` text NOT NULL,
-  `no_kerjasama` varchar(50) NOT NULL,
-  `masa_berlaku` varchar(50) NOT NULL,
-  `keterangan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `penggiat_kerjasama` text NOT NULL,
-  `kegiatan_kerjasama` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `id_dokumen` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_mitra`
 --
 
@@ -112,7 +100,8 @@ CREATE TABLE `tb_mitra` (
 
 INSERT INTO `tb_mitra` (`id_mitra`, `instansi_mitra`, `email_mitra`, `notelp_mitra`, `provinsi`, `kota`, `website`, `alamat_mitra`) VALUES
 (1, 'PEMERINTAH KOTA PADANG', 'diskominfo@padang.go.id', '0751 4640800', 'SUMATERA BARAT', 'PADANG', 'https://padang.go.id/', 'Jl. Bagindo Azis Chan No. 1\r\n\r\nAie Pacah - Kota Padang\r\n\r\nSumatera Barat'),
-(2, 'KOMINFO', 'humas@mail.kominfo.go.id', '(021) 345284', 'Jakarta Pusat', 'Jakarta', 'https://www.kominfo.go.id/', 'Jl. Medan Merdeka Barat no. 9, Jakarta 10110');
+(2, 'KOMINFO', 'humas@mail.kominfo.go.id', '(021) 345284', 'Jakarta Pusat', 'Jakarta', 'https://www.kominfo.go.id/', 'Jl. Medan Merdeka Barat no. 9, Jakarta 10110'),
+(3, 'semen', 'adfa@ad', '23123', 'fdads', 'adfa', 'asdf', 'adf');
 
 -- --------------------------------------------------------
 
@@ -124,15 +113,18 @@ CREATE TABLE `tb_users` (
   `id` int NOT NULL,
   `username` varchar(20) NOT NULL,
   `email` varchar(25) NOT NULL,
-  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `level` enum('superAdmin','admin','mitra','jurusan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tb_users`
 --
 
-INSERT INTO `tb_users` (`id`, `username`, `email`, `password`) VALUES
-(2, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `tb_users` (`id`, `username`, `email`, `password`, `level`) VALUES
+(2, 'admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'superAdmin'),
+(3, 'hakim', 'hakim@gmail.com', 'c96041081de85714712a79319cb2be5f', 'admin'),
+(6, 'TI', 'TI@gmail.com', '2720da9199bad0fc2eb7236dbe219ef5', 'jurusan');
 
 -- --------------------------------------------------------
 
@@ -152,6 +144,18 @@ CREATE TABLE `tb_usulan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `tb_usulan`
+--
+
+INSERT INTO `tb_usulan` (`id_usulan`, `nama_instansi`, `alamat`, `nama_pejabat_penanda_tangan`, `nama_jabatan`, `no_kontak`, `alamat_email`, `upload_dokumen`) VALUES
+(1, 'kim corp', 'adsfasf', 'asdf', 'fasd', '3423', 'faaf@asdf', 'Draft-Class-Diagram.docx'),
+(3, 'Teknik Komputer', 'asdf', 'asdf', 'fasd', '23123', 'asdf@ad', 'Draft-Class-Diagram.docx'),
+(6, 'Viandal', 'Padang', 'Sabran', 'CEO', '97423jadf', 'viandal@perusahaan.com', 'Draft-Class-Diagram.docx'),
+(7, 'asdfasd', 'asdfasd', 'asdfas', 'fasd', '3423asdf', 'asdf@kim.com', 'Draft-Class-Diagram.docx'),
+(8, 'afas', 'dfasdf', 'asdf', 'asdfa', '34234', 'asdf@adf', 'Draft-Class-Diagram.docx'),
+(9, 'asdf', 'asdfasdf', 'adsf', 'fasdfa213', '41234', 'asdf@asd', 'Draft-Class-Diagram.docx');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -159,22 +163,13 @@ CREATE TABLE `tb_usulan` (
 -- Indexes for table `tb_dokumen`
 --
 ALTER TABLE `tb_dokumen`
-  ADD PRIMARY KEY (`id_dokumen`),
-  ADD UNIQUE KEY `id_jurusan` (`id_jurusan`),
-  ADD UNIQUE KEY `id_mitra` (`id_mitra`);
+  ADD PRIMARY KEY (`id_dokumen`);
 
 --
 -- Indexes for table `tb_jurusan`
 --
 ALTER TABLE `tb_jurusan`
   ADD PRIMARY KEY (`id_jurusan`);
-
---
--- Indexes for table `tb_kerjasama`
---
-ALTER TABLE `tb_kerjasama`
-  ADD PRIMARY KEY (`id_kerjasama`),
-  ADD UNIQUE KEY `id_dokumen` (`id_dokumen`);
 
 --
 -- Indexes for table `tb_mitra`
@@ -202,7 +197,7 @@ ALTER TABLE `tb_usulan`
 -- AUTO_INCREMENT for table `tb_dokumen`
 --
 ALTER TABLE `tb_dokumen`
-  MODIFY `id_dokumen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_dokumen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_jurusan`
@@ -211,45 +206,22 @@ ALTER TABLE `tb_jurusan`
   MODIFY `id_jurusan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tb_kerjasama`
---
-ALTER TABLE `tb_kerjasama`
-  MODIFY `id_kerjasama` int NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tb_mitra`
 --
 ALTER TABLE `tb_mitra`
-  MODIFY `id_mitra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mitra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_usulan`
 --
 ALTER TABLE `tb_usulan`
-  MODIFY `id_usulan` int NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tb_dokumen`
---
-ALTER TABLE `tb_dokumen`
-  ADD CONSTRAINT `tb_dokumen_ibfk_1` FOREIGN KEY (`id_jurusan`) REFERENCES `tb_jurusan` (`id_jurusan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `tb_dokumen_ibfk_2` FOREIGN KEY (`id_mitra`) REFERENCES `tb_mitra` (`id_mitra`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `tb_kerjasama`
---
-ALTER TABLE `tb_kerjasama`
-  ADD CONSTRAINT `tb_kerjasama_ibfk_1` FOREIGN KEY (`id_dokumen`) REFERENCES `tb_dokumen` (`id_dokumen`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  MODIFY `id_usulan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

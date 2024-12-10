@@ -37,7 +37,6 @@ if (isset($_GET['proses']) && $_GET['proses'] == 'insert') {
             $nama_file);
 
             if ($stmt->execute()) {
-                echo "<script>window.location='../dashboard.php?page=tabelDokumen'</script>";
             } else {
                 echo "<script>alert('Gagal menyimpan data');</script>";
             }
