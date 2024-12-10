@@ -26,7 +26,7 @@
                 <?php 
             include ("../sikermaPNP/koneksi.php");
 
-            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen;");
+            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
             $no = 1;
             while($data_dokumen = mysqli_fetch_array($ambil)) {
             ?>
