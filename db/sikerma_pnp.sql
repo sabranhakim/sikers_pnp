@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 09, 2024 at 06:40 PM
+-- Generation Time: Dec 10, 2024 at 07:44 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.6
 
@@ -30,7 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_dokumen` (
   `id_dokumen` int NOT NULL,
   `no_dokumen` varchar(50) NOT NULL,
-  `instansi_mitra` varchar(40) NOT NULL,
   `jenis_dokumen` enum('MOU','MOA','IA') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jangka_waktu` varchar(25) NOT NULL,
   `awal_kerjasama` date NOT NULL,
@@ -39,16 +38,20 @@ CREATE TABLE `tb_dokumen` (
   `bidang_usaha` varchar(50) NOT NULL,
   `jurusan_terkait` varchar(20) NOT NULL,
   `topik_kerjasama` varchar(50) NOT NULL,
-  `link_dokumen` varchar(100) NOT NULL
+  `link_dokumen` varchar(100) NOT NULL,
+  `mitra_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tb_dokumen`
 --
 
-INSERT INTO `tb_dokumen` (`id_dokumen`, `no_dokumen`, `instansi_mitra`, `jenis_dokumen`, `jangka_waktu`, `awal_kerjasama`, `akhir_kerjasama`, `keterangan`, `bidang_usaha`, `jurusan_terkait`, `topik_kerjasama`, `link_dokumen`) VALUES
-(7, '654G', 'SEMEN ID', 'MOU', 'JHKLJ', '2024-12-21', '2024-12-27', 'Tidak Aktif', 'KJGK', 'General', 'JHFJ', 'Draft-Class-Diagram.docx'),
-(11, 'asdfasdf', 'asdfasdf', 'MOU', 'asdfasd', '2024-12-12', '2024-12-27', 'Tidak Aktif', 'asdfas', 'Akuntansi', 'asdfas', 'Draft-Class-Diagram.docx');
+INSERT INTO `tb_dokumen` (`id_dokumen`, `no_dokumen`, `jenis_dokumen`, `jangka_waktu`, `awal_kerjasama`, `akhir_kerjasama`, `keterangan`, `bidang_usaha`, `jurusan_terkait`, `topik_kerjasama`, `link_dokumen`, `mitra_id`) VALUES
+(7, '654G', 'MOU', 'JHKLJ', '2024-12-21', '2024-12-27', 'Tidak Aktif', 'KJGK', 'General', 'JHFJ', 'Draft-Class-Diagram.docx', 1),
+(11, 'asdfasdf', 'MOU', 'asdfasd', '2024-12-12', '2024-12-27', 'Tidak Aktif', 'asdfas', 'Akuntansi', 'asdfas', 'Draft-Class-Diagram.docx', 2),
+(13, '123das', 'MOA', 'asdf', '2024-12-03', '2024-12-28', 'Tidak Aktif', 'fasdf', 'General', 'asfdfad', 'Draft-Class-Diagram.docx', NULL),
+(14, 'rweqr', 'MOA', 'afsdfas', '2024-12-03', '2024-12-26', 'Tidak Aktif', 'asdf', 'General', 'fasdfas', 'Draft-Class-Diagram.docx', NULL),
+(18, 'asdfasd', 'MOA', 'fasdf', '2024-12-03', '2024-12-27', 'Tidak Aktif', 'asdfasd', 'General', 'fasdfa', 'Draft-Class-Diagram.docx', 1);
 
 -- --------------------------------------------------------
 
@@ -150,10 +153,20 @@ CREATE TABLE `tb_usulan` (
 INSERT INTO `tb_usulan` (`id_usulan`, `nama_instansi`, `alamat`, `nama_pejabat_penanda_tangan`, `nama_jabatan`, `no_kontak`, `alamat_email`, `upload_dokumen`) VALUES
 (1, 'kim corp', 'adsfasf', 'asdf', 'fasd', '3423', 'faaf@asdf', 'Draft-Class-Diagram.docx'),
 (3, 'Teknik Komputer', 'asdf', 'asdf', 'fasd', '23123', 'asdf@ad', 'Draft-Class-Diagram.docx'),
-(6, 'Viandal', 'Padang', 'Sabran', 'CEO', '97423jadf', 'viandal@perusahaan.com', 'Draft-Class-Diagram.docx'),
-(7, 'asdfasd', 'asdfasd', 'asdfas', 'fasd', '3423asdf', 'asdf@kim.com', 'Draft-Class-Diagram.docx'),
-(8, 'afas', 'dfasdf', 'asdf', 'asdfa', '34234', 'asdf@adf', 'Draft-Class-Diagram.docx'),
-(9, 'asdf', 'asdfasdf', 'adsf', 'fasdfa213', '41234', 'asdf@asd', 'Draft-Class-Diagram.docx');
+(10, 'asdfa', 'asdfwer', 'werwe', 'wer', '3423', 'fas@adf', 'Draft-Class-Diagram.docx'),
+(11, 'sdfa', 'fadsfas', 'dfasd', 'afsfd', '23123', 'afsdfa@adf', 'Draft-Class-Diagram.docx'),
+(12, 'fasd', 'fasdfxcvbxc', 'xbcvxcvb', 'bxcvb', '53453', 'adfa@hg', 'Draft-Class-Diagram.docx'),
+(13, 'asdfa', 'sdfas', 'fasdf', 'werwe', '2345234', 'asdfas@adf', 'Draft-Class-Diagram.docx'),
+(14, 'fasdf', 'fasdfa', 'sdfasdf', 'asdf', '34234', 'fasdf@daf', 'Draft-Class-Diagram.docx'),
+(15, 'dsfasd', 'fasdf', 'asdfasd', 'afsdfa', '342342', 'asdf@keke', 'Draft-Class-Diagram_Kel-5.pdf'),
+(16, 'afa', 'dfgrasdf', 'efdfzw', 'fawaf', '234', 'asf@hk', 'usecase1.1.pdf'),
+(17, 'asdf', 'fasdf', '3r23gd', 'asdfaf', '35345', 'fasd@kj', 'Draft-Class-Diagram_Kel-5.pdf'),
+(18, 'asfa', 'sadfa', 'dfasdf', 'asd', '4564564', 'fasd@ldfg', '5-6.docx'),
+(19, 'asfa', 'sadfa', 'dfasdf', 'asd', '4564564', 'fasd@ldfg', '5-6.docx'),
+(20, 'lkasdjfl', 'fasdfasdf', 'asdfasd', 'asdfa', '98734923', 'kim@corp', 'Document1.docx'),
+(21, 'agusCorp', 'padang', 'cau', 'CEO', '0983423', 'Asdf@asdf', 'Draft-Class-Diagram.docx'),
+(22, 'asdf', 'fasdfas', 'dfasdf', 'afsdf', '456456', 'fasd@gamda', 'Draft-Class-Diagram.docx'),
+(23, 'asdfasd', 'fasdfa', 'asdfasdf', 'asdfasdf', '345345', 'fasdf@sdgka', 'Draft-Class-Diagram.docx');
 
 --
 -- Indexes for dumped tables
@@ -163,7 +176,8 @@ INSERT INTO `tb_usulan` (`id_usulan`, `nama_instansi`, `alamat`, `nama_pejabat_p
 -- Indexes for table `tb_dokumen`
 --
 ALTER TABLE `tb_dokumen`
-  ADD PRIMARY KEY (`id_dokumen`);
+  ADD PRIMARY KEY (`id_dokumen`),
+  ADD KEY `mitra_id` (`mitra_id`) USING BTREE;
 
 --
 -- Indexes for table `tb_jurusan`
@@ -197,7 +211,7 @@ ALTER TABLE `tb_usulan`
 -- AUTO_INCREMENT for table `tb_dokumen`
 --
 ALTER TABLE `tb_dokumen`
-  MODIFY `id_dokumen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_dokumen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tb_jurusan`
@@ -221,7 +235,17 @@ ALTER TABLE `tb_users`
 -- AUTO_INCREMENT for table `tb_usulan`
 --
 ALTER TABLE `tb_usulan`
-  MODIFY `id_usulan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usulan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tb_dokumen`
+--
+ALTER TABLE `tb_dokumen`
+  ADD CONSTRAINT `mitra-id_mitra` FOREIGN KEY (`mitra_id`) REFERENCES `tb_mitra` (`id_mitra`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

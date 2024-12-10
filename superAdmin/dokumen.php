@@ -54,11 +54,11 @@
                     <td><?= $data_dokumen['topik_kerjasama'] ?></td>
                     <td>
                         <?php if (!empty($data_dokumen['link_dokumen'])) { ?>
-                            <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn btn-primary">
-                                <i class="bi bi-download"></i> Download
-                            </a>
+                        <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn btn-primary">
+                            <i class="bi bi-download"></i> Download
+                        </a>
                         <?php } else { ?>
-                            <span class="text-muted">No File</span>
+                        <span class="text-muted">No File</span>
                         <?php } ?>
                     </td>
                     <td class="text-nowrap">
@@ -88,11 +88,20 @@
             <label for="no_dokumen">Nomor MOU/MOA</label>
             <input type="text" class="form-control" name="no_dokumen" required>
         </div>
-        <div class="form-group">
-            <label for="instansi_mitra">Instansi Mitra</label>
-            <input type="text" class="form-control" name="instansi_mitra" required>
+        <div class="mb-3">
+            <label for="mitra_id" class="form-label">Nama Instansi</label>
+            <select name="mitra_id" id="mitra_id" class="form-select" required>
+                <option value="">--Pilih Instansi--</option>
+                <?php 
+                            include "koneksi.php";
+
+                            $instansi = mysqli_query($koneksi, "SELECT * FROM tb_mitra");
+                            while($data_mitra = mysqli_fetch_array($instansi)) {
+                                echo "<option value=".$data_mitra['id_mitra'].">".$data_mitra['instansi_mitra']."</option>";
+                            }
+                        ?>
+            </select>
         </div>
-        
         <div class="form-group">
             <label for="jenis_dokumen">Jenis Dokumen</label>
             <select class="form-control" name="jenis_dokumen" id="jenis_dokumen" required>
@@ -142,8 +151,8 @@
             <input type="text" class="form-control" name="topik_kerjasama" required>
         </div>
         <div class="form-group">
-            <label for="link_dokumen">Upload Dokumen</label>
-            <input type="file" class="form-control" name="link_dokumen" required>
+            <label for="link_dokumen">Upload Dokumen (harus kurang dari 4mb)</label>
+            <input type="file" class="form-control" name="link_dokumen" accept=".pdf,.doc,.docx" required>
         </div>
         <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
         <a href="?page=tabelDokumen&aksi=list" class="btn btn-secondary">Batal</a>
@@ -167,9 +176,19 @@
             <input type="text" class="form-control" name="no_dokumen" value="<?= $data_edit['no_dokumen'] ?>" required>
         </div>
         <div class="form-group">
-            <label for="instansi_mitra">Instansi Mitra</label>
-            <input type="text" class="form-control" name="instansi_mitra" value="<?= $data_edit['instansi_mitra'] ?>"
-                required>
+            <label for="mitra_id">Instansi Mitra</label>
+            <select class="form-control" name="mitra_id" required>
+                <option value="">-- Pilih Instansi Mitra --</option>
+                <?php
+                    // Fetch all records from the tb_mitra table
+                    $query_mitra = mysqli_query($koneksi, "SELECT * FROM tb_mitra");
+                    while ($data_mitra = mysqli_fetch_array($query_mitra)) {
+                        // Select the current mitra for edit
+                        $selected = ($data_edit['mitra_id'] == $data_mitra['id_mitra']) ? 'selected' : '';
+                        echo "<option value='{$data_mitra['id_mitra']}' $selected>{$data_mitra['instansi_mitra']}</option>";
+                    }
+                ?>
+            </select>
         </div>
         <div class="form-group">
             <label for="jenis_dokumen">Jenis Dokumen</label>
@@ -210,22 +229,25 @@
             <label for="jurusan_terkait">Jurusan Terkait</label>
             <select class="form-control" name="jurusan_terkait" required>
                 <option value="">-- Pilih Jurusan Terkait --</option>
-                <option value="Teknologi Informasi" <?= $data_edit['jurusan_terkait'] == 1 ? 'selected' : '' ?>>
-                    Teknologi Informasi
+                <option value="Teknologi Informasi"
+                    <?= $data_edit['jurusan_terkait'] == "Teknologi Informasi" ? 'selected' : '' ?>>Teknologi Informasi
                 </option>
-                <option value="Teknik Mesin" <?= $data_edit['jurusan_terkait'] == 2 ? 'selected' : '' ?>>Teknik Mesin
+                <option value="Teknik Mesin" <?= $data_edit['jurusan_terkait'] == "Teknik Mesin" ? 'selected' : '' ?>>
+                    Teknik Mesin</option>
+                <option value="Teknik Sipil" <?= $data_edit['jurusan_terkait'] == "Teknik Sipil" ? 'selected' : '' ?>>
+                    Teknik Sipil</option>
+                <option value="Teknik Elektro"
+                    <?= $data_edit['jurusan_terkait'] == "Teknik Elektro" ? 'selected' : '' ?>>Teknik Elektro</option>
+                <option value="Administrasi Niaga"
+                    <?= $data_edit['jurusan_terkait'] == "Administrasi Niaga" ? 'selected' : '' ?>>Administrasi Niaga
                 </option>
-                <option value="Teknik Sipil" <?= $data_edit['jurusan_terkait'] == 3 ? 'selected' : '' ?>>Teknik Sipil
+                <option value="Akuntansi" <?= $data_edit['jurusan_terkait'] == "Akuntansi" ? 'selected' : '' ?>>
+                    Akuntansi</option>
+                <option value="Bahasa Inggris"
+                    <?= $data_edit['jurusan_terkait'] == "Bahasa Inggris" ? 'selected' : '' ?>>Bahasa Inggris</option>
+                <option value="General" <?= $data_edit['jurusan_terkait'] == "General" ? 'selected' : '' ?>>General
                 </option>
-                <option value="Teknik Elektro" <?= $data_edit['jurusan_terkait'] == 4 ? 'selected' : '' ?>>Teknik
-                    Elektro</option>
-                <option value="Administrasi Niaga" <?= $data_edit['jurusan_terkait'] == 5 ? 'selected' : '' ?>>
-                    Administrasi Niaga
-                </option>
-                <option value="Akuntansi" <?= $data_edit['jurusan_terkait'] == 6 ? 'selected' : '' ?>>Akuntansi</option>
-                <option value="Bahasa Inggris" <?= $data_edit['jurusan_terkait'] == 7 ? 'selected' : '' ?>>Bahasa
-                    Inggris</option>
-                <option value="General" <?= $data_edit['jurusan_terkait'] == 8 ? 'selected' : '' ?>>General</option>
+
             </select>
         </div>
         <div class="form-group">
@@ -235,7 +257,7 @@
         </div>
         <div class="form-group">
             <label for="link_dokumen">Upload Dokumen (Kosongkan jika tidak diubah)</label>
-            <input type="file" class="form-control" name="link_dokumen">
+            <input type="file" class="form-control" name="link_dokumen" value="<?= $data_edit['link_dokumen'] ?>" accept=".pdf,.doc,.docx">
         </div>
         <button type="submit" class="btn btn-success" name="submit">Update</button>
         <a href="?page=tabelDokumen&aksi=list" class="btn btn-secondary">Batal</a>

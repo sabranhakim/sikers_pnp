@@ -46,7 +46,7 @@
                     <td class="text-nowrap"><?= $data_mitra['alamat_mitra'] ?></td>
                     <td class="text-nowrap">
                     <a href="?page=tabelMitra&aksi=edit&id_edit=<?= $data_mitra['id_mitra'] ?>" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
-                    <a href="/superAdmin/proses_dokumen.php?proses=delete&id_hapus=<?= $data_mitra['id_mitra'] ?>"
+                    <a href="/superAdmin/proses_mitra.php?proses=delete&id_hapus=<?= $data_mitra['id_mitra'] ?>"
                         class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>

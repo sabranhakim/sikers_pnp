@@ -1,3 +1,51 @@
+<?php
+include 'koneksi.php';
+
+    // Query data berdasarkan tahun
+    $query = "
+        SELECT YEAR(tanggal_dokumen) AS tahun, jenis_dokumen, COUNT(*) AS jumlah 
+        FROM tb_dokumen 
+        GROUP BY tahun, jenis_dokumen
+        ORDER BY tahun ASC
+    ";
+    $result = $koneksi->query($query);
+
+    // Siapkan data untuk Chart.js
+    $data = [];
+    $years = [];
+    $mouData = [];
+    $moaData = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $tahun = $row['tahun'];
+        $jenis = strtoupper($row['jenis_dokumen']);
+        $jumlah = (int)$row['jumlah'];
+
+        if (!in_array($tahun, $years)) {
+            $years[] = $tahun;
+        }
+
+        if ($jenis === 'MOU') {
+            $mouData[$tahun] = $jumlah;
+        } elseif ($jenis === 'MOA') {
+            $moaData[$tahun] = $jumlah;
+        }
+    }
+
+    // Pastikan semua tahun memiliki nilai default (0) jika tidak ada data
+    foreach ($years as $tahun) {
+        $mouData[$tahun] = $mouData[$tahun] ?? 0;
+        $moaData[$tahun] = $moaData[$tahun] ?? 0;
+    }
+
+    // Konversi data ke format JSON
+    $chartData = [
+        'years' => $years,
+        'mou' => array_values($mouData),
+        'moa' => array_values($moaData)
+    ];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,19 +62,21 @@
 
 <body>
     <div class="row">
-
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        </div>
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                Total MOU</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">40,000</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <!-- icon -->
                         </div>
                     </div>
                 </div>
@@ -34,17 +84,17 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                Total MOA</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">10.000</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <!-- icon -->
                         </div>
                     </div>
                 </div>
@@ -52,45 +102,17 @@
         </div>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Jumlah Usulan Kerjasama</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">10.000</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <!-- icon -->
                         </div>
                     </div>
                 </div>
@@ -99,9 +121,7 @@
     </div>
     <section class="container-fluid" style="padding: 20px;">
         <div class="row">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            </div>
+
             <!-- Bar Chart -->
             <div class="col-xl-8">
                 <div class="card shadow mb-4 border-left-warning">
@@ -110,7 +130,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
-                            <canvas id="barChart"></canvas>
+                            <canvas id="barChart" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -144,20 +164,23 @@
     </section>
 
     <script>
-        // Bar Chart
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        new Chart(barCtx, {
+        // Data dari PHP
+        const chartData = < ? php echo json_encode($chartData); ? > ;
+
+        // Inisialisasi Chart.js
+        const ctx = document.getElementById('barChart').getContext('2d');
+        new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['2021', '2022', '2023'],
+                labels: chartData.years,
                 datasets: [{
-                        label: 'Jumlah MoU',
-                        data: [15, 25, 40],
+                        label: 'MoU',
+                        data: chartData.mou,
                         backgroundColor: '#007bff',
                     },
                     {
-                        label: 'Jumlah MoA',
-                        data: [10, 20, 30],
+                        label: 'MoA',
+                        data: chartData.moa,
                         backgroundColor: '#28a745',
                     }
                 ]
@@ -176,13 +199,13 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Tahun',
+                            text: 'Tahun'
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Jumlah Kerjasama',
+                            text: 'Jumlah Dokumen'
                         },
                         beginAtZero: true
                     }
@@ -190,18 +213,19 @@
             }
         });
 
+
         // Pie Chart
-        const pieCtx = document.getElementById('pieChart').getContext('2d');
-        new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Mitra Industri', 'Perguruan Tinggi', 'Pemerintah'],
-                datasets: [{
-                    data: [30, 45, 25],
-                    backgroundColor: ['#007bff', '#28a745', '#ffc107'],
-                }]
-            }
-        });
+        // const pieCtx = document.getElementById('pieChart').getContext('2d');
+        // new Chart(pieCtx, {
+        //     type: 'pie',
+        //     data: {
+        //         labels: ['Mitra Industri', 'Perguruan Tinggi', 'Pemerintah'],
+        //         datasets: [{
+        //             data: [30, 45, 25],
+        //             backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+        //         }]
+        //     }
+        // });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

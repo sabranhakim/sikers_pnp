@@ -162,7 +162,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                     </form>
-                    <a href="logout.php" style="padding-right: 50px;"
+                    <a href="logout.php" style="padding-right: 50px; text-decoration: none;"
                         onclick="return confirm('Apakah anda ingin Logout?')"><i class="bi bi-box-arrow-in-left"></i>
                         Logout</a>
                 </nav>
