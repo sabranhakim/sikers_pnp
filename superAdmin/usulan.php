@@ -25,6 +25,7 @@
                     <th>No Kontak</th>
                     <th>Alamat Email</th>
                     <th>Upload Dokumen Usulan</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -36,6 +37,7 @@
             $ambil = mysqli_query($koneksi,"SELECT * FROM tb_usulan");
             $no = 1;
             while($data_usulan = mysqli_fetch_array($ambil)) {
+                $status = $data_usulan['status'];
             ?>
                 <tr>
                     <td><?= $no ?></td>
@@ -47,25 +49,43 @@
                     <td><?= $data_usulan['alamat_email'] ?></td>
                     <td>
                         <?php if (!empty($data_usulan['upload_dokumen'])) { ?>
-                            <a href="<?= $data_usulan['upload_dokumen'] ?>" target="_blank" class="btn btn-primary">
-                                <i class="bi bi-download"></i> Download
-                            </a>
+                        <a href="<?= $data_usulan['upload_dokumen'] ?>" target="_blank" class="btn"
+                        style="background-color: #dc5902; color: white;" download>
+                            <i class="bi bi-download"></i> Download
+                        </a>
                         <?php } else { ?>
-                            <span class="text-muted">No File</span>
+                        <span class="text-muted">No File</span>
                         <?php } ?>
                     </td>
+                    <td>
+                        <span
+                            class="badge <?= $status == 'Approved' ? 'text-success' : ($status == 'Declined' ? 'text-danger' : 'bg-secondary') ?>">
+                            <?= $status ?>
+                        </span>
+                    </td>
                     <td class="text-nowrap">
+                        <?php if ($status == 'Pending') { ?>
+                        <a href="/superAdmin/proses_usulan.php?proses=approve&id=<?= $data_usulan['id_usulan'] ?>"
+                            class="btn btn-success btn-sm" onclick="return confirm('Approve usulan ini?')">
+                            <i class="bi bi-check"></i>
+                        </a>
+                        <a href="/superAdmin/proses_usulan.php?proses=decline&id=<?= $data_usulan['id_usulan'] ?>"
+                            class="btn btn-danger btn-sm" onclick="return confirm('Decline usulan ini?')">
+                            <i class="bi bi-x"></i>
+                        </a>
+                        <?php } ?>
                         <a href="?page=tabelUsulan&aksi=edit&id_edit=<?= $data_usulan['id_usulan'] ?>"
                             class="btn btn-warning"><i class="bi bi-pencil"></i></a>
                         <a href="/superAdmin/proses_usulan.php?proses=delete&id_hapus=<?= $data_usulan['id_usulan'] ?>"
                             class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')"><i
                                 class="bi bi-trash"></i></a>
                     </td>
+
                 </tr>
                 <?php 
             $no++;
-        }
-        ?>
+            }
+            ?>
             </tbody>
         </table>
     </div>

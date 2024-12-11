@@ -178,5 +178,28 @@ if (isset($_GET['proses']) && $_GET['proses'] == 'insert') {
         } else{
             echo "<script>alert('Gagal menghapus data');</script>";
         }
-}  
+} 
+
+if (isset($_GET['proses']) && isset($_GET['id'])) {
+    include '../koneksi.php';
+    $id = intval($_GET['id']);
+    $proses = $_GET['proses'];
+
+    if ($proses == 'approve') {
+        $query = "UPDATE tb_usulan SET status = 'Approved' WHERE id_usulan = $id";
+        $pesan = "Usulan berhasil di-approve!";
+    } elseif ($proses == 'decline') {
+        $query = "UPDATE tb_usulan SET status = 'Declined' WHERE id_usulan = $id";
+        $pesan = "Usulan berhasil di-decline!";
+    } else {
+        $pesan = "Proses tidak valid!";
+        $query = "";
+    }
+
+    if (!empty($query) && mysqli_query($koneksi, $query)) {
+        echo "<script>alert('$pesan'); window.location.href='../dashboard.php?page=tabelUsulan';</script>";
+    } else {
+        echo "<script>alert('Gagal memproses usulan!'); window.location.href='../dashboard.php?page=tabelUsulan';</script>";
+    }
+}
 ?>

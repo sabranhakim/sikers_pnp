@@ -21,6 +21,7 @@
         justify-content: center;
         color: white;
     }
+
 </style>
 
 <body>
@@ -134,7 +135,7 @@
     </section>
 
     <!-- Modal Section -->
-    <div class="modal fade" id="usulanModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal modal-lg fade" id="usulanModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="/superAdmin/proses_usulan.php?proses=insert" method="POST" enctype="multipart/form-data">
@@ -169,8 +170,8 @@
                             <input type="email" class="form-control" id="alamat_email" name="alamat_email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="upload_dokumen" class="form-label">Upload Dokumen</label>
-                            <input type="file" class="form-control" id="upload_dokumen" name="upload_dokumen">
+                            <label for="upload_dokumen" class="form-label">Upload Dokumen (tidak lebih dari 4mb)</label>
+                            <input type="file" class="form-control" id="upload_dokumen" name="upload_dokumen" accept=".pdf,.doc,.docx" required>
                         </div>
                     </div>
                     <div class="modal-footer">

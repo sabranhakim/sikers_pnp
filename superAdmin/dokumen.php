@@ -1,6 +1,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+    .custome-active {
+        background-color: #FFD1B3;
+    }
+</style>
 
 <!-- content -->
 <div class="container-fluid">
@@ -11,7 +16,7 @@
             case 'list':
     ?>
     <h2>Data Dokumen</h2>
-    <a href="?page=tabelDokumen&aksi=input" class="btn btn-primary mb-3 mt-3"><i class="bi bi-plus-circle"></i> New</a>
+    <a href="?page=tabelDokumen&aksi=input" class="btn mb-3 mt-3" style="background-color: #dc5902; color: white;"><i class="bi bi-plus-circle"></i> New</a>
     <div class="table-responsive col-12">
         <table id="tabel-dokumen" class="table table-bordered table-striped border-left-warning">
             <thead>
@@ -39,8 +44,9 @@
             $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
             $no = 1;
             while($data_dokumen = mysqli_fetch_array($ambil)) {
+                $bgColor = ($data_dokumen['keterangan'] == 'Aktif') ? 'custom-active' : '';   
             ?>
-                <tr>
+                <tr class="<?= $bgColor ?>">
                     <td><?= $no ?></td>
                     <td><?= $data_dokumen['no_dokumen'] ?></td>
                     <td><?= $data_dokumen['instansi_mitra'] ?></td>
@@ -54,7 +60,7 @@
                     <td><?= $data_dokumen['topik_kerjasama'] ?></td>
                     <td>
                         <?php if (!empty($data_dokumen['link_dokumen'])) { ?>
-                        <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn btn-primary">
+                        <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn" style="background-color: #dc5902; color: white;" download>
                             <i class="bi bi-download"></i> Download
                         </a>
                         <?php } else { ?>

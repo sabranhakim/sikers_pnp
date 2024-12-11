@@ -21,16 +21,17 @@
                     <th>Upload Dokumen</th>
                 </tr>
             </thead>
-
+            
             <tbody>
                 <?php 
             include ("../sikermaPNP/koneksi.php");
-
+            
             $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
             $no = 1;
             while($data_dokumen = mysqli_fetch_array($ambil)) {
+                $bgColor = ($data_dokumen['keterangan'] == 'Aktif') ? 'table-success' : 'table-danger';
             ?>
-                <tr>
+                <tr class="<?= $bgColor ?>">
                     <td><?= $no ?></td>
                     <td><?= $data_dokumen['no_dokumen'] ?></td>
                     <td><?= $data_dokumen['instansi_mitra'] ?></td>

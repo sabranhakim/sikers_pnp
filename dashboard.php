@@ -43,7 +43,8 @@ if (!isset($_SESSION['username'])) {
         border-radius: 0;
         transition: background-color 0.3s ease;
     }
-    .nav-item:hover{
+
+    .nav-item:hover {
         background-color: #dc5902;
     }
 </style>
@@ -54,7 +55,7 @@ if (!isset($_SESSION['username'])) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion text-center" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -72,7 +73,7 @@ if (!isset($_SESSION['username'])) {
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?page=home"">
-                <i class="bi bi-graph-up"></i>
+                <i class=" bi bi-graph-up"></i>
                     <span>Statistik</span></a>
             </li>
 
@@ -100,7 +101,7 @@ if (!isset($_SESSION['username'])) {
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?page=tabelUsulan"">
-                <i class="fas fa-handshake"></i>
+                <i class=" fas fa-handshake"></i>
                     <span>Usulan Kerjasama</span></a>
             </li>
 
@@ -118,7 +119,7 @@ if (!isset($_SESSION['username'])) {
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?page=tabelUsers"">
-                <i class="bi bi-person-circle"></i>
+                <i class=" bi bi-person-circle"></i>
                     <span>Tabel User</span></a>
             </li>
             <?php 
@@ -131,7 +132,7 @@ if (!isset($_SESSION['username'])) {
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php?page=tabelDokumenJurusan"">
-                <i class="fas fa-handshake"></i>
+                <i class=" fas fa-handshake"></i>
                     <span>Dokumen</span></a>
             </li>
             <?php 
@@ -162,7 +163,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                     </form>
-                    <a href="logout.php" style="padding-right: 50px; text-decoration: none;"
+                    <a href="logout.php" style="padding-right: 50px; text-decoration: none; color:#dc5902;"
                         onclick="return confirm('Apakah anda ingin Logout?')"><i class="bi bi-box-arrow-in-left"></i>
                         Logout</a>
                 </nav>
@@ -287,4 +288,5 @@ if (!isset($_SESSION['username'])) {
         new DataTable("#tabel-dokumen-jurusan");
     </script>
 </body>
+
 </html>
