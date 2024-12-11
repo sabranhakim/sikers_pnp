@@ -16,73 +16,149 @@
             case 'list':
     ?>
     <h2>Data Dokumen</h2>
-    <a href="?page=tabelDokumen&aksi=input" class="btn mb-3 mt-3" style="background-color: #dc5902; color: white;"><i class="bi bi-plus-circle"></i> New</a>
+    <a href="?page=tabelDokumen&aksi=input" class="btn mb-3 mt-3" style="background-color: #dc5902; color: white;"><i
+            class="bi bi-plus-circle"></i> New</a>
     <div class="table-responsive col-12">
-        <table id="tabel-dokumen" class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
+        <table id="tabel-dokumen"
+            class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nomor MOU/MOA</th>
                     <th>Instansi Mitra</th>
                     <th>Jenis Dokumen</th>
-                    <th>Jangka Waktu</th>
-                    <th>Awal Kerjasama</th>
-                    <th>Akhir Kerjasama</th>
+                    <th>Download Dokumen</th>
                     <th>Keterangan</th>
-                    <th>Bidang Usaha</th>
-                    <th>Jurusan Terkait</th>
-                    <th>Topik Kerjasama</th>
-                    <th>Upload Dokumen</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
 
             <tbody>
                 <?php 
-            include ("../sikermaPNP/koneksi.php");
-                //SELECT * FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra
-            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
-            $no = 1;
-            while($data_dokumen = mysqli_fetch_array($ambil)) {
-                $bgColor = ($data_dokumen['keterangan'] == 'Aktif') ? 'custom-active' : '';   
-            ?>
-                <tr class="<?= $bgColor ?>">
+                include ("../sikermaPNP/koneksi.php");
+                $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
+                $no = 1;
+                while($data_dokumen = mysqli_fetch_array($ambil)) {
+                ?>
+                <tr>
                     <td><?= $no ?></td>
                     <td><?= $data_dokumen['no_dokumen'] ?></td>
                     <td><?= $data_dokumen['instansi_mitra'] ?></td>
                     <td><?= $data_dokumen['jenis_dokumen'] ?></td>
-                    <td><?= $data_dokumen['jangka_waktu'] ?></td>
-                    <td><?= $data_dokumen['awal_kerjasama'] ?></td>
-                    <td><?= $data_dokumen['akhir_kerjasama'] ?></td>
-                    <td><?= $data_dokumen['keterangan'] ?></td>
-                    <td><?= $data_dokumen['bidang_usaha'] ?></td>
-                    <td><?= $data_dokumen['jurusan_terkait'] ?></td>
-                    <td><?= $data_dokumen['topik_kerjasama'] ?></td>
                     <td>
-                        <?php if (!empty($data_dokumen['link_dokumen'])) { ?>
-                        <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn" style="background-color: #dc5902; color: white;" download>
-                            <i class="bi bi-download"></i> Download
-                        </a>
-                        <?php } else { ?>
-                        <span class="text-muted">No File</span>
-                        <?php } ?>
+                    <?php if (!empty($data_dokumen['link_dokumen'])) { ?>
+                    <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn"
+                        style="background-color: #dc5902; color: white;" download>
+                        <i class="bi bi-download"></i> Download
+                    </a>
+                    <?php } else { ?>
+                    <span class="text-muted">No File</span>
+                    <?php } ?>
+                </td>
+                    <td>
+                        <?php if ($data_dokumen['keterangan'] == 'Aktif') : ?>
+                        <span class="text-success"><strong><?= $data_dokumen['keterangan'] ?></strong></span>
+                        <?php else : ?>
+                        <span class="text-danger"><strong><?= $data_dokumen['keterangan'] ?></strong></span>
+                        <?php endif; ?>
                     </td>
                     <td class="text-nowrap">
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailModal"
+                            onclick="loadDetail(<?= htmlspecialchars(json_encode($data_dokumen), ENT_QUOTES, 'UTF-8') ?>)">
+                            <i class="bi bi-eye"></i>
+                        </button>
                         <a href="?page=tabelDokumen&aksi=edit&id_edit=<?= $data_dokumen['id_dokumen'] ?>"
-                            class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                            class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                        </a>
                         <a href="/superAdmin/proses_dokumen.php?proses=delete&id_hapus=<?= $data_dokumen['id_dokumen'] ?>"
-                            class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')"><i
-                                class="bi bi-trash"></i></a>
-                    </td>
+                            class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 <?php 
-            $no++;
-        }
-        ?>
+                $no++;
+                }
+                ?>
             </tbody>
         </table>
     </div>
+
+    <!-- Modal Detail -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Dokumen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Nomor MOU/MOA</th>
+                                <td id="detailNoDokumen"></td>
+                            </tr>
+                            <tr>
+                                <th>Instansi Mitra</th>
+                                <td id="detailInstansiMitra"></td>
+                            </tr>
+                            <tr>
+                                <th>Jenis Dokumen</th>
+                                <td id="detailJenisDokumen"></td>
+                            </tr>
+                            <tr>
+                                <th>Jangka Waktu</th>
+                                <td id="detailJangkaWaktu"></td>
+                            </tr>
+                            <tr>
+                                <th>Awal Kerjasama</th>
+                                <td id="detailAwalKerjasama"></td>
+                            </tr>
+                            <tr>
+                                <th>Akhir Kerjasama</th>
+                                <td id="detailAkhirKerjasama"></td>
+                            </tr>
+                            <tr>
+                                <th>Keterangan</th>
+                                <td id="detailKeterangan"></td>
+                            </tr>
+                            <tr>
+                                <th>Bidang Usaha</th>
+                                <td id="detailBidangUsaha"></td>
+                            </tr>
+                            <tr>
+                                <th>Jurusan Terkait</th>
+                                <td id="detailJurusanTerkait"></td>
+                            </tr>
+                            <tr>
+                                <th>Topik Kerjasama</th>
+                                <td id="detailTopikKerjasama"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadDetail(data) {
+            document.getElementById('detailNoDokumen').innerText = data.no_dokumen;
+            document.getElementById('detailInstansiMitra').innerText = data.instansi_mitra;
+            document.getElementById('detailJenisDokumen').innerText = data.jenis_dokumen;
+            document.getElementById('detailJangkaWaktu').innerText = data.jangka_waktu;
+            document.getElementById('detailAwalKerjasama').innerText = data.awal_kerjasama;
+            document.getElementById('detailAkhirKerjasama').innerText = data.akhir_kerjasama;
+            document.getElementById('detailKeterangan').innerText = data.keterangan;
+            document.getElementById('detailBidangUsaha').innerText = data.bidang_usaha;
+            document.getElementById('detailJurusanTerkait').innerText = data.jurusan_terkait;
+            document.getElementById('detailTopikKerjasama').innerText = data.topik_kerjasama;
+        }
+    </script>
     <?php 
         break;
         case 'input':
@@ -263,7 +339,8 @@
         </div>
         <div class="form-group">
             <label for="link_dokumen">Upload Dokumen (Kosongkan jika tidak diubah)</label>
-            <input type="file" class="form-control" name="link_dokumen" value="<?= $data_edit['link_dokumen'] ?>" accept=".pdf,.doc,.docx">
+            <input type="file" class="form-control" name="link_dokumen" value="<?= $data_edit['link_dokumen'] ?>"
+                accept=".pdf,.doc,.docx">
         </div>
         <button type="submit" class="btn btn-success" name="submit">Update</button>
         <a href="?page=tabelDokumen&aksi=list" class="btn btn-secondary">Batal</a>

@@ -2,6 +2,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <!-- content -->
+<!-- Content -->
 <div class="container-fluid">
     <?php 
         $aksi = isset($_GET["aksi"]) ? $_GET["aksi"] : 'list';
@@ -12,7 +13,7 @@
     <h2>Data Mitra</h2>
     <a href="?page=tabelMitra&aksi=input" class="btn mb-3 mt-3" style="background-color: #dc5902; color: white;"><i class="bi bi-plus-circle"></i> New</a>
     <div class="table-responsive col-12">
-        <table id="tabel-mitra" class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
+        <table id="tabel-mitra" class="table table-bordered table-hover caption-top table-striped border-left-warning">
             <thead>
                 <tr>
                     <th>No</th>
@@ -29,12 +30,12 @@
 
             <tbody>
                 <?php 
-            include ("../sikermaPNP/koneksi.php");
+                include ("../sikermaPNP/koneksi.php");
 
-            $ambil = mysqli_query($koneksi,"SELECT * FROM tb_mitra");
-            $no = 1;
-            while($data_mitra = mysqli_fetch_array($ambil)) {
-            ?>
+                $ambil = mysqli_query($koneksi,"SELECT * FROM tb_mitra");
+                $no = 1;
+                while($data_mitra = mysqli_fetch_array($ambil)) {
+                ?>
                 <tr>
                     <td><?= $no ?></td> 
                     <td><?= $data_mitra['instansi_mitra'] ?></td>
@@ -43,17 +44,46 @@
                     <td><?= $data_mitra['provinsi'] ?></td>
                     <td><?= $data_mitra['kota'] ?></td>
                     <td><?= $data_mitra['website'] ?></td>
-                    <td class="text-nowrap"><?= $data_mitra['alamat_mitra'] ?></td>
+                    <td><?= $data_mitra['alamat_mitra'] ?></td>
                     <td class="text-nowrap">
-                    <a href="?page=tabelMitra&aksi=edit&id_edit=<?= $data_mitra['id_mitra'] ?>" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
-                    <a href="/superAdmin/proses_mitra.php?proses=delete&id_hapus=<?= $data_mitra['id_mitra'] ?>"
-                        class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')"><i class="bi bi-trash"></i></a>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailModal<?= $data_mitra['id_mitra'] ?>">
+                            <i class="bi bi-info-circle"></i>
+                        </button>
+                        <a href="?page=tabelMitra&aksi=edit&id_edit=<?= $data_mitra['id_mitra'] ?>" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                        <a href="/superAdmin/proses_mitra.php?proses=delete&id_hapus=<?= $data_mitra['id_mitra'] ?>"
+                            class="btn btn-danger" onclick="return confirm('Yakin menghapus data?')"><i class="bi bi-trash"></i></a>
                     </td>
                 </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="detailModal<?= $data_mitra['id_mitra'] ?>" tabindex="-1" aria-labelledby="detailModalLabel<?= $data_mitra['id_mitra'] ?>" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detailModalLabel<?= $data_mitra['id_mitra'] ?>">Detail Mitra</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Instansi:</strong> <?= $data_mitra['instansi_mitra'] ?></p>
+                                <p><strong>Email:</strong> <?= $data_mitra['email_mitra'] ?></p>
+                                <p><strong>No Telp:</strong> <?= $data_mitra['notelp_mitra'] ?></p>
+                                <p><strong>Provinsi:</strong> <?= $data_mitra['provinsi'] ?></p>
+                                <p><strong>Kota:</strong> <?= $data_mitra['kota'] ?></p>
+                                <p><strong>Website:</strong> <?= $data_mitra['website'] ?></p>
+                                <p><strong>Alamat:</strong> <?= $data_mitra['alamat_mitra'] ?></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
+
                 <?php 
-            $no++;
-        }
-        ?>
+                    $no++;
+                }
+                ?>
             </tbody>
         </table>
     </div>
