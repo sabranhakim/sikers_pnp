@@ -12,7 +12,7 @@
     <h2>Data Mitra</h2>
     <a href="?page=tabelMitra&aksi=input" class="btn mb-3 mt-3" style="background-color: #dc5902; color: white;"><i class="bi bi-plus-circle"></i> New</a>
     <div class="table-responsive col-12">
-        <table id="tabel-mitra" class="table table-bordered table-striped border-left-warning">
+        <table id="tabel-mitra" class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
             <thead>
                 <tr>
                     <th>No</th>

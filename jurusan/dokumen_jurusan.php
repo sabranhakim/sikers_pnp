@@ -4,7 +4,7 @@
 <!-- Content -->
 <h2>Data Dokumen</h2>
     <div class="table-responsive col-12">
-        <table id="tabel-dokumen-jurusan" class="table table-bordered table-striped border-left-warning">
+        <table id="tabel-dokumen-jurusan" class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
             <thead>
                 <tr>
                     <th>No</th>
@@ -18,7 +18,7 @@
                     <th>Bidang Usaha</th>
                     <th>Jurusan Terkait</th>
                     <th>Topik Kerjasama</th>
-                    <th>Upload Dokumen</th>
+                    <th>Download Dokumen</th>
                 </tr>
             </thead>
             
@@ -29,7 +29,7 @@
             $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
             $no = 1;
             while($data_dokumen = mysqli_fetch_array($ambil)) {
-                $bgColor = ($data_dokumen['keterangan'] == 'Aktif') ? 'table-success' : 'table-danger';
+                $bgColor = ($data_dokumen['keterangan'] == 'Aktif') ? 'bg-success' : 'bg-danger';
             ?>
                 <tr class="<?= $bgColor ?>">
                     <td><?= $no ?></td>
@@ -43,7 +43,15 @@
                     <td><?= $data_dokumen['bidang_usaha'] ?></td>
                     <td><?= $data_dokumen['jurusan_terkait'] ?></td>
                     <td><?= $data_dokumen['topik_kerjasama'] ?></td>
-                    <td><?= $data_dokumen['link_dokumen'] ?></td>
+                    <td>
+                        <?php if (!empty($data_dokumen['link_dokumen'])) { ?>
+                        <a href="<?= $data_dokumen['link_dokumen'] ?>" target="_blank" class="btn" style="background-color: #dc5902; color: white;" download>
+                            <i class="bi bi-download"></i> Download
+                        </a>
+                        <?php } else { ?>
+                        <span class="text-muted">No File</span>
+                        <?php } ?>
+                    </td>
                     
                 </tr>
                 <?php 

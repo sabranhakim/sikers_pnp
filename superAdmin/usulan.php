@@ -13,7 +13,7 @@
     <h2>Data Usulan Kerjasama</h2>
     <!-- <a href="?page=tabelUsulan&aksi=input" class="btn btn-primary mb-3 mt-3"><i class="bi bi-plus-circle"></i> New</a> -->
     <div class="table-responsive col-12">
-        <table id="tabel-usulan" class="table table-bordered table-striped border-left-warning">
+        <table id="tabel-usulan" class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
             <thead>
                 <tr>
                     <!-- id_usulan	nama_instansi	alamat	nama_pejabat_penanda_tangan	nama_jabatan	no_kontak	alamat_email	upload_dokumen -->
