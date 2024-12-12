@@ -190,7 +190,6 @@
                 <option value="">-- Pilih Jenis Dokumen --</option>
                 <option value="MOU">MOU</option>
                 <option value="MOA">MOA</option>
-                <option value="IA">IA</option>
             </select>
         </div>
         <div class="form-group">

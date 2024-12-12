@@ -147,7 +147,7 @@ $chartData = [
             <div class="col-xl-8">
                 <div class="card shadow mb-4 border-left-warning">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-light">Earnings Overview</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Jumlah MOA dan MOA per Tahun</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">
@@ -161,7 +161,7 @@ $chartData = [
             <div class="col-xl-4">
                 <div class="card shadow mb-4 border-left-warning">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-light">Pie Chart Overview</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Total MOU dan MOA </h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-container">

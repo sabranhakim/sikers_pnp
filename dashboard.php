@@ -19,7 +19,8 @@ if (!isset($_SESSION['username'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SIKERMA PNP</title>
+    <title>SIKers PNP - Dashboard</title>
+    <link href="img/PNP.png" rel="icon">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,10 +43,22 @@ if (!isset($_SESSION['username'])) {
         font-weight: bold;
         border-radius: 0;
         transition: background-color 0.3s ease;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        /* Full height */
+        width: 250px;
+        overflow-y: auto;
+        /* Enable scrolling for sidebar content */
     }
 
     .nav-item:hover {
         background-color: #dc5902;
+    }
+
+    #content-wrapper {
+        margin-left: 225px;
     }
 </style>
 
@@ -58,7 +71,7 @@ if (!isset($_SESSION['username'])) {
         <ul class="navbar-nav sidebar sidebar-dark accordion text-center" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
                 <div class="sidebar-brand-text mx-3">SIKers PNP</div>
             </a>
 
@@ -191,6 +204,7 @@ if (!isset($_SESSION['username'])) {
                                 if ($page == 'tabelDokumen') include "superAdmin/dokumen.php";
                                 if ($page == 'tabelUsulan') include "superAdmin/usulan.php";
                                 if ($page == 'tabelUsers') include "superAdmin/users.php";
+                                //if ($page == 'tabelKegiatan') include "superAdmin/kegiatan.php";
                             } else if ($_SESSION['level'] == 'admin') {
                                 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
@@ -198,6 +212,7 @@ if (!isset($_SESSION['username'])) {
                                 if ($page == 'tabelMitra') include "SuperAdmin/mitra.php";
                                 if ($page == 'tabelDokumen') include "superAdmin/dokumen.php";
                                 if ($page == 'tabelUsulan') include "superAdmin/usulan.php";
+                                ///if ($page == 'tabelKegiatan') include "superAdmin/kegiatan.php";
                             } else if ($_SESSION['level'] == 'jurusan') {
                                 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
