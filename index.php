@@ -93,6 +93,8 @@ $chartData = [
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+    <!-- buttons -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.min.css">
 
   <!-- =======================================================
   * Template Name: iLanding
@@ -121,7 +123,6 @@ $chartData = [
           <li><a href="#about">About</a></li>
           <li><a href="#statistik">Statistik</a></li>
           <li><a href="#kerjasama">Kerjasama</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -305,7 +306,7 @@ $chartData = [
               <div class="counter-box">
                 <div class="card-body">
                   <div class="chart-container">
-                    <h4>Jumlah MOA dan MOA per Tahun</h4> <br>
+                    <h4>Jumlah MOU dan MOA per Tahun</h4> <br>
                     <canvas id="barChart" width="1000" height="500"></canvas>
                   </div>
                 </div>
@@ -338,27 +339,56 @@ $chartData = [
         <h2>Daftar Kerjasama</h2>
       </div><!-- End Section Title -->
 
-      <div class="container">
+      <div class="container" data-aos="fade-up">
 
-        <div class="row g-5">
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+      <div class="table-responsive col-12">
+        <table id="tabel-dokumen-dashboard"
+            class="table table-bordered table-hover caption-top text-center table-striped border-left-warning">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Instansi Mitra</th>
+                    <th>Topik Kerjasama</th>
+                    <th>Jenis Dokumen</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
 
-          </div><!-- End testimonial item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-
-          </div><!-- End testimonial item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-
-          </div><!-- End testimonial item -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-
-          </div><!-- End testimonial item -->
-
-        </div>
+            <tbody>
+                <?php 
+                include ("../sikermaPNP/koneksi.php");
+                $ambil = mysqli_query($koneksi,"SELECT * FROM tb_dokumen JOIN tb_mitra ON tb_dokumen.mitra_id = tb_mitra.id_mitra;");
+                $no = 1;
+                while($data_dokumen = mysqli_fetch_array($ambil)) {
+                ?>
+                <tr>
+                    <td><?= $no ?></td>
+                    <td><?= $data_dokumen['instansi_mitra'] ?></td>
+                    <td><?= $data_dokumen['topik_kerjasama'] ?></td>
+                    <td><?= $data_dokumen['jenis_dokumen'] ?></td>
+                    <td>
+                        <?php if ($data_dokumen['keterangan'] == 'Aktif') : ?>
+                        <span class="text-success"><strong><?= $data_dokumen['keterangan'] ?></strong></span>
+                        <?php else : ?>
+                        <span class="text-danger"><strong><?= $data_dokumen['keterangan'] ?></strong></span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="text-nowrap">
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#detailModal"
+                            onclick="loadDetail(<?= htmlspecialchars(json_encode($data_dokumen), ENT_QUOTES, 'UTF-8') ?>)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+                <?php 
+                $no++;
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
       </div>
 
@@ -375,104 +405,7 @@ $chartData = [
 
     </section><!-- /Stats Section -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-4 g-lg-5">
-          <div class="col-lg-5">
-            <div class="info-box" data-aos="fade-up" data-aos-delay="200">
-              <h3>Contact Info</h3>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
-              </p>
-
-              <div class="info-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box">
-                  <i class="bi bi-geo-alt"></i>
-                </div>
-                <div class="content">
-                  <h4>Our Location</h4>
-                  <p>A108 Adam Street</p>
-                  <p>New York, NY 535022</p>
-                </div>
-              </div>
-
-              <div class="info-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box">
-                  <i class="bi bi-telephone"></i>
-                </div>
-                <div class="content">
-                  <h4>Phone Number</h4>
-                  <p>+1 5589 55488 55</p>
-                  <p>+1 6678 254445 41</p>
-                </div>
-              </div>
-
-              <div class="info-item" data-aos="fade-up" data-aos-delay="500">
-                <div class="icon-box">
-                  <i class="bi bi-envelope"></i>
-                </div>
-                <div class="content">
-                  <h4>Email Address</h4>
-                  <p>info@example.com</p>
-                  <p>contact@example.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-7">
-            <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-              <h3>Get In Touch</h3>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.
-              </p>
-
-              <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-                data-aos-delay="200">
-                <div class="row gy-4">
-
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                  </div>
-
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                  </div>
-
-                  <div class="col-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                  </div>
-
-                  <div class="col-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                  </div>
-
-                  <div class="col-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                    <button type="submit" class="btn">Send Message</button>
-                  </div>
-
-                </div>
-              </form>
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
+    
 
   </main>
 
@@ -526,6 +459,60 @@ $chartData = [
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel">Detail Dokumen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Instansi Mitra</th>
+                                <td id="detailInstansiMitra"></td>
+                            </tr>
+                            <tr>
+                                <th>Jenis Dokumen</th>
+                                <td id="detailJenisDokumen"></td>
+                            </tr>
+                            <tr>
+                                <th>Awal Kerjasama</th>
+                                <td id="detailAwalKerjasama"></td>
+                            </tr>
+                            <tr>
+                                <th>Akhir Kerjasama</th>
+                                <td id="detailAkhirKerjasama"></td>
+                            </tr>
+                            <tr>
+                                <th>Keterangan</th>
+                                <td id="detailKeterangan"></td>
+                            </tr>
+                            <tr>
+                                <th>Topik Kerjasama</th>
+                                <td id="detailTopikKerjasama"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loadDetail(data) {
+            document.getElementById('detailInstansiMitra').innerText = data.instansi_mitra;
+            document.getElementById('detailJenisDokumen').innerText = data.jenis_dokumen;
+            document.getElementById('detailAwalKerjasama').innerText = data.awal_kerjasama;
+            document.getElementById('detailAkhirKerjasama').innerText = data.akhir_kerjasama;
+            document.getElementById('detailKeterangan').innerText = data.keterangan;
+            document.getElementById('detailTopikKerjasama').innerText = data.topik_kerjasama;
+        }
+    </script>
 
   <footer id="footer" class="footer">
 
@@ -639,12 +626,12 @@ $chartData = [
                 {
                     label: 'MOU',
                     data: chartData.mou,
-                    backgroundColor: '#007bff',
+                    backgroundColor: '#ff6f3C',
                 },
                 {
                     label: 'MOA',
                     data: chartData.moa,
-                    backgroundColor: '#28a745',
+                    backgroundColor: '#1E3E62',
                 }
             ]
         },
@@ -684,7 +671,7 @@ $chartData = [
             labels: ['Total MOU', 'Total MOA'],
             datasets: [{
                 data: [chartData.totalMou, chartData.totalMoa],
-                backgroundColor: ['#007bff', '#28a745'],
+                backgroundColor: ['#ff6f3C', '#1E3E62'],
             }]
         },
         options: {
@@ -697,7 +684,36 @@ $chartData = [
         }
     });
     </script>
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- Data Tables -->
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"></script>
+    <script>
+        new DataTable("#tabel-dokumen-dashboard");
+        </script>
 </body>
 
 </html>

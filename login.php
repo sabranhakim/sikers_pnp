@@ -57,14 +57,16 @@ if (isset($_POST['submit'])) {
         }
 
         .card {
-            border-radius: 10px;
+            border-radius: 15px;
+            height: 450px;
+            width: 750px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: fadeIn 1s ease-in-out;
         }
 
         .card:hover {
-            transform: scale(1.05);
+            transform: scale(1.2);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -138,7 +140,7 @@ if (isset($_POST['submit'])) {
                             <div class="col-lg-6 d-none d-lg-block bg-login-image gif-center">
                                 <img src="img/loginAnimation.gif" alt="Login Animation" style="max-width: 100%; height: auto; margin-left: 30px;">
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 mt-5">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome to SIKers PNP!</h1>
