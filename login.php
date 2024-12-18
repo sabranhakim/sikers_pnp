@@ -1,7 +1,6 @@
 <?php
 include 'koneksi.php';
 session_start();
-
 error_reporting(0);
 
 // Redirect jika sudah login
@@ -11,21 +10,22 @@ if (isset($_SESSION['username'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($koneksi, $_POST['email']);
-    $password = md5($_POST['password']); // Disarankan mengganti md5 dengan password_hash
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = md5($_POST['password']);
     $level = $_POST['level'] ?? null;
 
-    $sql = "SELECT * FROM tb_users WHERE email='$email' AND password='$password'";
+    $sql = "SELECT * FROM tb_users WHERE username='$username' AND password='$password'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
+        $_SESSION['id'] = $row['id'];
         $_SESSION['username'] = $row['username'];
         $_SESSION['level'] = $row['level'];
-        header("Location: dashboard.php");
+        header("Location: dashboard.php");  
         exit;
     } else {
-        echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
+        echo "<script>alert('Username atau Password Anda salah. Silahkan coba lagi!')</script>";
     }
 }
 ?>
@@ -58,6 +58,7 @@ if (isset($_POST['submit'])) {
 
         .card {
             border-radius: 15px;
+            justify-content: center;
             height: 450px;
             width: 750px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -66,7 +67,7 @@ if (isset($_POST['submit'])) {
         }
 
         .card:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -147,14 +148,14 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" name="email" 
-                                                placeholder="Enter Email Address..." required>
+                                            <input type="username" class="form-control form-control-user"
+                                                id="exampleInputEmail" name="username" 
+                                                placeholder="Enter Username" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" name="password" 
-                                                placeholder="Password" required>
+                                                placeholder="Enter Password" required>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">

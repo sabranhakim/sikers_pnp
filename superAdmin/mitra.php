@@ -20,7 +20,7 @@
                     <th>Instansi</th>
                     <th>Email</th>
                     <th>No Telp</th>
-                    <th>Provinsi</th>
+                    <th>Provinsi / Negara</th>
                     <th>Kota</th>
                     <th>Website</th>
                     <th>Alamat</th>

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<lin    k rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <style>
@@ -204,11 +204,11 @@
             <label for="akhir_kerjasama">Akhir Kerjasama</label>
             <input type="date" class="form-control" name="akhir_kerjasama" required>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="keterangan">Keterangan</label><br>
             <input type="radio" name="keterangan" value="Aktif" required> Aktif <br>
             <input type="radio" name="keterangan" value="Tidak Aktif" required> Tidak Aktif
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="bidang_usaha">Bidang Usaha</label>
             <input type="text" class="form-control" name="bidang_usaha" required>

@@ -273,8 +273,8 @@ $chartData = [
           <div class="col-xl-6" data-aos="fade-up" data-aos-delay="300">
             <div class="image-wrapper">
               <div class="images position-relative" data-aos="zoom-out" data-aos-delay="400">
-                <img src="assets/img/about-5.webp" alt="Business Meeting" class="img-fluid main-image rounded-4">
-                <img src="assets/img/about-2.webp" alt="Team Discussion" class="img-fluid small-image rounded-4">
+                <img src="assets/img/pkm.jpeg" alt="" class=" main-image rounded-4">
+                <img src="assets/img/direktur.png" alt="" class="img-fluid small-image rounded-4">
               </div>
               <div class="experience-badge floating">
                 <h3>15+ <span>Years</span></h3>
@@ -518,65 +518,45 @@ $chartData = [
 
     <div class="container footer-top">
       <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
+        <div class="col-lg-6 col-md-6 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">iLanding</span>
+            <span class="sitename">Politeknik Negeri Padang</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
+            <p>Kampus Politeknik Negeri Padang Limau Manis Kecamatan Pauh</p>
+            <p>Kota Padang, Provinsi Sumatera Barat 25164</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>0751-72590</span></p>
+            <p><strong>Email:</strong> <span>info@pnp.ac.id</span></p>
           </div>
           <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://x.com/humas_pnp"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/pnp.ac.id"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/politekniknegeripadang_pnp/"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.youtube.com/@pnpbroadcast"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
+        <div class="col-lg-3 col-lg-3 footer-links">
+          <h4>Tautan Terkait</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="https://www.kemdikbud.go.id/">kemdikbud</a></li>
+            <li><a href="http://sinta2.ristekdikti.go.id/affiliations/detail?id=545&view=overview">sinta2.ristekdikti</a></li>
+            <li><a href="https://pddikti.kemdikbud.go.id/">pddikti.kemdikbud</a></li>
+            <li><a href="https://simpediakat.pnp.ac.id/">Simpediakat P3M PNP</a></li>
+            <li><a href="http://ulp.pnp.ac.id/">Unit Layanan Pengadaan</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
+        <div class="col-lg-3 col-lg-3 footer-links">
+          <h4>Zona Integritas</h4>
           <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Hic solutasetp</h4>
-          <ul>
-            <li><a href="#">Molestiae accusamus iure</a></li>
-            <li><a href="#">Excepturi dignissimos</a></li>
-            <li><a href="#">Suscipit distinctio</a></li>
-            <li><a href="#">Dilecta</a></li>
-            <li><a href="#">Sit quas consectetur</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Nobis illum</h4>
-          <ul>
-            <li><a href="#">Ipsam</a></li>
-            <li><a href="#">Laudantium dolorum</a></li>
-            <li><a href="#">Dinera</a></li>
-            <li><a href="#">Trodelas</a></li>
-            <li><a href="#">Flexo</a></li>
+            <li><a href="https://lapor.go.id/">lapor.go.id</a></li>
+            <li><a href="https://elhkpn.kpk.go.id/portal/user/login#modal-notice">elhkpn.kpk.go.id</a></li>
+            <li><a href="https://ppid.pnp.ac.id/">ppid.pnp</a></li>
+            <li><a href="https://www.pnp.ac.id/?page_id=3837">Survey Kepuasan Masyarakat</a></li>
+            <li><a href="https://satik.pnp.ac.id/satik-pnp/web/">Saran dan Kritik</a></li>
+            <li><a href="https://www.pnp.ac.id/?page_id=1853">Standar Pelayanan Publik</a></li>
           </ul>
         </div>
 
@@ -584,13 +564,13 @@ $chartData = [
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">iLanding</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Politeknik Negeri Padang</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="">Kelompok 5</a>
       </div>
     </div>
 

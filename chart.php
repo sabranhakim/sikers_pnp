@@ -187,12 +187,12 @@ new Chart(barCtx, {
             {
                 label: 'MOU',
                 data: chartData.mou,
-                backgroundColor: '#007bff',
+                backgroundColor: '#ff6f3C',
             },
             {
                 label: 'MOA',
                 data: chartData.moa,
-                backgroundColor: '#28a745',
+                backgroundColor: '#1E3E62',
             }
         ]
     },
@@ -232,7 +232,7 @@ new Chart(pieCtx, {
         labels: ['Total MOU', 'Total MOA'],
         datasets: [{
             data: [chartData.totalMou, chartData.totalMoa],
-            backgroundColor: ['#007bff', '#28a745'],
+            backgroundColor: ['#ff6f3C', '#1E3E62'],
         }]
     },
     options: {
