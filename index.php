@@ -104,7 +104,6 @@ $chartData = [
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
