@@ -296,11 +296,105 @@ if (!isset($_SESSION['username'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"></script>
 
     <script>
-        new DataTable("#tabel-mitra");
-        new DataTable("#tabel-dokumen");
-        new DataTable("#tabel-usulan");
+        new DataTable("#tabel-mitra", {
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'excel',
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            filename: 'data-mitra.pdf',
+                            title: 'Data Mitra',
+                            orientation: 'landscape',
+                            pageSize: 'A4',
+                            exportOptions: {
+                                columns: ['0, 1, 2, 3, 4, 5, 6, 7, 8']
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+        new DataTable("#tabel-dokumen", {
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'excel',
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            filename: 'data-dokumen.pdf',
+                            title: 'Data Dokumen',
+                            orientation: 'landscape',
+                            pageSize: 'A4',
+                            exportOptions: {
+                                columns: ['1, 2, 3, 4, 5']
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+        new DataTable("#tabel-usulan", {
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'excel',
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            filename: 'data-usulan-kerjasama.pdf',
+                            title: 'Data Usulan Kerjasama',
+                            orientation: 'landscape',
+                            pageSize: 'A4',
+                            exportOptions: {
+                                columns: ['1, 2, 3, 4, 5, 6, 8']
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Print',
+                            exportOptions: {
+                                columns: ['1, 2, 3, 4, 5, 6, 8']
+                            }
+                        }
+                    ]
+                }
+            }
+        });
         new DataTable("#tabel-users");
-        new DataTable("#tabel-dokumen-jurusan");
+        new DataTable("#tabel-dokumen-jurusan", {
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'excel',
+                        {
+                            extend: 'pdf',
+                            text: 'PDF',
+                            filename: 'data-dokumen.pdf',
+                            title: 'Data Dokumen',
+                            orientation: 'landscape',
+                            pageSize: 'A4',
+                            exportOptions: {
+                                columns: ['1, 2, 3, 4, 5, 6, 7, 8, 9, 10']
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Print',
+                            exportOptions: {
+                                columns: ['1, 2, 3, 4, 5, 6, 7, 8, 9, 10']
+                            }
+                        }
+                    ]
+                }
+            }
+        });
     </script>
 </body>
 

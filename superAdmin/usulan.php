@@ -24,7 +24,7 @@
                     <th>Jabatan</th>
                     <th>No Kontak</th>
                     <th>Alamat Email</th>
-                    <th>Upload Dokumen Usulan</th>
+                    <th>Dokumen Usulan</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
