@@ -59,7 +59,7 @@
                     </td>
                     <td>
                         <span
-                            class="badge <?= $status == 'Approved' ? 'text-success' : ($status == 'Declined' ? 'text-danger' : 'bg-secondary') ?>">
+                            class="badge <?= $status == 'Approved' ? 'text-success' : ($status == 'Declined' ? 'text-danger' : 'text-secondary') ?>">
                             <?= $status ?>
                         </span>
                     </td>
